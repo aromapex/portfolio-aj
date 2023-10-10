@@ -1,0 +1,41 @@
+<div id="technologies">
+    <h1 class="heading">My <span>Technologies</span></h1>
+
+    <!-- Create Technology Form -->
+    {{#if isAuthenticated}}
+    <form action="/tech" method="post">
+        <label for="newName">Name:</label>
+        <input type="text" id="newName" name="name" placeholder="Name" required>
+
+        <label for="newPicurl">Picture URL:</label>
+        <input type="text" id="newPicurl" name="picurl" placeholder="Picture URL" required>
+        
+        <button type="submit">Create Technology</button>
+    </form>
+    {{/if}}
+
+    <div class="technologies-container flex">
+        {{#each technologiesData}}
+        <div class="technology-box">
+            <h3>{{name}}</h3>
+            <img src="{{picurl}}" alt="{{name}} Image">
+            
+            <!-- Edit Technology Form -->
+            {{#if ../isAuthenticated}}
+            <form action="/tech/{{id}}/edit" method="post">
+                <input type="text" name="name" placeholder="New Name" value="{{name}}">
+                <input type="text" name="picurl" placeholder="New Picture URL" value="{{picurl}}">
+                <button type="submit">Update</button>
+            </form>
+            {{/if}}
+
+            <!-- Delete Technology Form -->
+            {{#if ../isAuthenticated}}
+            <form action="/tech/{{id}}/delete" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</div>

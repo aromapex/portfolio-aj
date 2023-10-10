@@ -27,4 +27,14 @@
     .nav-bar ul li {
         margin: 10px 0;
     }
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) { 
+
+    main.about-row {
+        grid-template-columns: 1fr;
+    }
 }

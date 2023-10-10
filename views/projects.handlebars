@@ -1,8 +1,54 @@
-<div id="main">
-    <div>
-        <h1>Information</h1>
-        <div>
-                <div class="projects"><p>these are my projects</p></div>
+<div id="projects">
+    <h1 class="heading">My <span>Projects</span></h1>
+
+    <!-- Create Project Form -->
+    {{#if isAuthenticated}}
+    <form action="/projects" method="post">
+        <label for="newTitle">Title:</label>
+        <input type="text" id="newTitle" name="title" placeholder="Title" required>
+
+        <label for="newDescription">Description:</label>
+        <input id="newDescription" name="description" placeholder="Description" required>
+
+        <!-- Input field for the image directory or URL -->
+        <label for="newImage">Image Directory or URL:</label>
+        <input type="text" id="newImage" name="img" placeholder="Image Directory or URL">
+
+        <button type="submit">Create Project</button>
+    </form>
+    {{/if}}
+
+    <div class="projects-container flex">
+        {{#each projectsData}}
+        <div class="project-box">
+            <i class='bx bx-code-alt'></i>
+            <h3>{{title}}</h3>
+            <p>{{description}}</p>
+
+            <!-- Display the project image -->
+            <img src="{{img}}" alt="{{title}}" class="project-image">
+
+            <!-- Edit Project Form -->
+            <!-- Edit Project Form -->
+            {{#if ../isAuthenticated}}
+            <form action="/projects/{{id}}/edit" method="post">
+                <input type="text" name="title" placeholder="New Title" value="">
+                <input type="text" name="description" placeholder="New Description" value="">
+                <!-- Input field for editing the image directory or URL -->
+                <input type="text" name="img" placeholder="New Image Directory or URL" value="{{img}}">
+
+                <button type="submit">Update</button>
+            </form>
+            {{/if}}
+
+
+            <!-- Delete Project Form -->
+            {{#if ../isAuthenticated}}
+            <form action="/projects/{{id}}/delete" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            {{/if}}
         </div>
+        {{/each}}
     </div>
 </div>

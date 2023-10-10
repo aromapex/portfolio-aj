@@ -3,28 +3,30 @@
 
 
 * {
-    margin: 0;
+  background-color: var(--background-color);
     padding: 0;
     list-style: none;
     text-decoration: none;
     font-family: sans-serif;
     box-sizing: border-box;
    font-family: 'poppins', sans-serif;
+
 }
 
 :root {
-    --text-color: black;
+    --text-color: rgb(255, 255, 255);
     --primary-color: #007bff;
-    --secondary-color: #ffffff;
-    --hover-line: rgb(216, 71, 66);
-    --background-color: #ebb3c4;
+    --secondary-color:  #FCF6F5;
+    --hover-line: rgb(255, 59, 52);
+    --background-color: #3e3b3b;
+    --lighter-background-color: #4f4b4b;
   }
 
 
 .header {
     width: 100%;
     display: flex;
-    background: var(--secondary-color);
+    background: var(--background-color);
     justify-content: space-between;
     align-items: center;
     height: 100%;
@@ -66,8 +68,8 @@ a:hover {
 }
 
 .nav-bar ul li a:hover {
-    color: black;
-    background: white;
+    color: var(--text-color);
+    background: var(--background-color);
 }
 
 
@@ -103,27 +105,44 @@ ul li a:hover {
 .home h3 {
     font-size: 2rem;
     font-weight: 700;
+    margin: 0;
+    color: var(--text-color);
 }
 
 .home-content h1 {
     font-size: 4rem;
     font-weight: 700;
     line-height: 1.3;
+    margin: 0;
+    color: var(--text-color);
+
 }
 .home-content h3:nth-of-type(2) {
     margin-bottom: 1rem;
+    color: var(--text-color);
+
 }
 .home-img img{
     width: 25vw;
+    border-radius: 143px;
+background: #e19494;
+box-shadow:  35px 35px 650px #b27575,
+             -35px -35px 7px #ffb3b3;
+            left: 13rem;
+            top: 5rem;
+             z-index: 10;
+             position: relative;
 }
 
 .home-content {
-    margin-top: 10%;
-    margin-left: 5%;;
+    margin-top: 8%;
+    margin-left: 20%;;
 }
 
 .home-content p {
     font-size: 1rem;
+    color: var(--text-color);
+
 }
 
 .social-media a {
@@ -145,7 +164,7 @@ ul li a:hover {
     border-radius: 4rem;
     margin-top: 1rem;
     font-size: 1rem;
-    color: white;
+    color: var(--text-color);
     letter-spacing: .1rem;
     font-weight: 600;  
 }
@@ -156,4 +175,108 @@ ul li a:hover {
 
 .multiple-texts {
     color: var(--hover-line);
+}
+
+.about-main {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.about-container{
+    width: 100%;
+    padding: 35px 10px;
+}
+.about-col {
+    align-content: center;
+    justify-content: center;
+    
+}
+main.about-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+}
+
+.about-col header.about-title {
+    color: var(--hover-line);
+    padding: 0px 0px 20px 30px;
+}
+.about-col .about-contents {
+    padding: 0px 30px;
+    border-left: 2px solid white;
+}
+
+.about-col .about-contents .about-box {
+    position: relative;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    background-color: var(--lighter-background-color);
+    cursor: pointer;
+    transition: all 0.4s;
+    margin-bottom: 20px;;
+}
+
+
+.about-col .about-contents .about-box:hover {
+    box-shadow: 0px 3px 6px 0px var(--hover-line);
+    border: 1px solid transparent;
+}
+
+.about-col .about-contents .about-box::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    right: calc(100% + 22px);
+    top: 0;
+    background-color: var(--hover-line);
+    border: 2px solid white;
+}
+
+.about-box h4 {
+    position: relative;
+    color: var(--hover-line);
+    background-color: var(--lighter-background-color);
+}
+
+.about-box h3 {
+    padding: 10px 0px ;
+    color: var(--text-color);
+    background-color: var(--lighter-background-color);
+} 
+.about-box li {
+    color: var(--text-color);
+    background-color: var(--lighter-background-color);
+
+}
+.about-box p {
+    line-height: 1.2;
+    color: var(--text-color);
+    background-color: var(--lighter-background-color);
+
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: 2rem;
+    justify-content: space-between; /* Adjust as needed */
+}
+
+.project-box {
+    flex: 1 1 calc(30% - 2rem); /* Adjust width as needed */
+    background-color: var(--hover-line);
+    padding: 3rem 3rem 4rem;
+    border-radius: 4rem;
+    text-align: center;
+    border: .2rem solid black;
+    transition: .5s;
+}
+
+.menu-toggle {
+    display: none;
 }

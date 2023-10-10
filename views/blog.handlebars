@@ -1,0 +1,54 @@
+<div id="blogs">
+    <h1 class="heading">My <span>Blogs</span></h1>
+
+    <!-- Create Blog Form -->
+    {{#if isAuthenticated}}
+    <form action="/blog" method="post">
+        <label for="newTitle">Title:</label>
+        <input type="text" id="newTitle" name="title" placeholder="Title" required>
+
+        <label for="newContent">Content:</label>
+        <textarea id="newContent" name="content" placeholder="Content" required></textarea>
+
+        <label for="newAuthor">Author:</label>
+        <input type="text" id="newAuthor" name="author" placeholder="Author" required>
+
+        <label for="newTags">Tags:</label>
+        <input type="text" id="newTags" name="tags" placeholder="Tags" required>
+
+        <button type="submit">Create Blog</button>
+    </form>
+    {{/if}}
+
+    <div class="blogs-container flex">
+        {{#each blogsData}}
+        <div class="blog-box">
+            <h3>{{title}}</h3>
+            <p>{{content}}</p>
+            <p><strong>Author:</strong> {{author}}</p>
+            <p><strong>Tags:</strong> {{tags}}</p>
+            <a href="/blog/{{post_id}}">Read More</a>
+
+
+            <!-- Edit Blog Form -->
+           <!-- Edit Blog Form -->
+               {{#if ../isAuthenticated}}
+               <form action="/blog/{{post_id}}/edit" method="post">
+                   <input type="text" name="title" placeholder="New Title" value="{{title}}">
+                   <input type="text" name="content" placeholder="New Content" value="{{content}}">
+                   <input type="text" name="author" placeholder="New Author" value="{{author}}">
+                   <input type="text" name="tags" placeholder="New Tags" value="{{tags}}">
+                   <button type="submit">Update</button>
+               </form>
+               {{/if}}
+
+               <!-- Delete Blog Form -->
+               {{#if ../isAuthenticated}}
+               <form action="/blog/{{post_id}}/delete" method="post">
+                   <button type="submit">Delete</button>
+               </form>
+               {{/if}}
+           </div>
+           {{/each}}
+       </div>
+   </div>
