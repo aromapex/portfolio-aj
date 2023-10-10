@@ -9,8 +9,15 @@ const db = new sqlite3.Database('project-aj.db');
 const { setupDatabase } = require('./projects-database');
 const { router: authRouter, isAuthenticated } = require('./routers/auth-router');
 const session = require('express-session');
+const exphbs = require('express-handlebars'); // Add this line
 
 const blogRouter = require('./routers/blogs-router');
+
+// Register the eq helper
+const hbs = exphbs.create({ helpers: { eq: (a, b) => a === b } });
+
+// Register the 'eq' helper
+require('./handlebars-helpers');
 
 app.use(session({
   secret: 'your-secret-key', // Change this to a secret key 
@@ -34,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/projects', require('./routers/projects-routers'));
 app.use('/blog', require('./routers/blogs-router'));
 app.use('/tech', require('./routers/tech-router'));
-
+app.use('/about', require('./routers/about-router'));
 app.use('/', authRouter);
 
 -
@@ -48,11 +55,6 @@ app.get('/', function(request, response){
   response.render('home.handlebars')
 })
 
-// renders a view WITHOUT DATA
-app.get('/about', (req, res) => {
-  res.render('about');
-  console.log("accessing about route");
-});
 
 
 

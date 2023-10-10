@@ -1,76 +1,136 @@
-<div id="about-main">
+<div id="main">
 		<div class="about-container">
+			 {{#if isAuthenticated}}
+            <section class="about-col">
+                <header class="about-title">
+                    <h2>Create Career Entry</h2>
+                </header>
+                <div class="about-contents">
+                    <form action="/about" method="post">
+                        <label for="startDate">Start Date:</label>
+                        <input type="text" id="startDate" name="start_date" placeholder="Start Date" required>
+
+                        <label for="endDate">End Date:</label>
+                        <input type="text" id="endDate" name="end_date" placeholder="End Date">
+
+                        <label for="institution">Institution:</label>
+                        <input type="text" id="institution" name="institution" placeholder="Institution" required>
+
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" placeholder="Title" required>
+
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" placeholder="Location">
+
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" placeholder="Description"></textarea>
+
+                        <button type="submit">Create Entry</button>
+                    </form>
+                </div>
+            </section>
+            {{/if}}
 			<main class="about-row">
 				<!-- Educations section starts -->
 				<section class="about-col">
-					<header class="about-title">
-						<h2>Education</h2>
-					</header>
-					<div class="about-contents">
-						<div class="about-box">
-							<h4>2022-Present</h4>
-							<h3>Datateknik - Mjukvaruutveckling och mobila plattformar</h3>
-						</div>
-						<div class="about-box">
-							<h4>2022</h4>
-							<h3>Cisco Networking Academy - IT Essentials Course</h3>
-						</div>
-						<div class="about-box">
-							<h4>2020-2022</h4>
-							<h3>PrimalOx UF - UF Företagets VD</h3>
-						</div>
-						<div class="about-box">
-							<h4>2019-2022</h4>
-							<h3>Brinellgymnasiet: Teknikprogrammet – IT och media</h3>
-						</div>
-					</div>
-				</section>
+    <header class="about-title">
+        <h2>Education</h2>
+    </header>
+    <div class="about-contents">
+        {{#each careerData}}
+        {{#if (eq title "Education")}}
+        <div class="about-box">
+            <h4>{{start_date}} - {{end_date}}</h4>
+            <h3>{{institution}}</h3>
+			{{#if ../isAuthenticated}}
+                        <form action="/about/{{entry_id}}/edit" method="post">
+                            <label for="startDate">Start Date:</label>
+                            <input type="text" id="startDate" name="start_date" value="{{start_date}}">
+
+                            <label for="endDate">End Date:</label>
+                            <input type="text" id="endDate" name="end_date" value="{{end_date}}">
+
+                            <label for="institution">Institution:</label>
+                            <input type="text" id="institution" name="institution" value="{{institution}}">
+
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" value="{{title}}">
+
+                            <label for="location">Location:</label>
+                            <input type="text" id="location" name="location" value="{{location}}">
+
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description">{{description}}</textarea>
+
+                            <button type="submit">Update Entry</button>
+                        </form>
+
+                        <!-- Delete Button -->
+                        <form action="/about/{{entry_id}}/delete" method="post">
+                            <button type="submit">Delete Entry</button>
+                        </form>
+                        {{/if}}
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</section>
+<!-- Education section ends -->
 
 				<!-- Educations section ends -->
 
-				<!-- Experience section starts -->
+<!-- Work Experience section starts -->
+<section class="about-col">
+    <header class="about-title">
+        <h2>Work Experience</h2>
+    </header>
+    <div class="about-contents">
+        {{#each careerData}}
+        {{#if (eq title "Work Experience")}}
+        <div class="about-box">
+            <h4 class="job_info">{{start_date}} - {{end_date}}</h4>
+            <h3>{{title}}</h3>
+            <p class="job_info">{{location}}</p>
 
-				<section class="about-col">
-					<header class="about-title">
-						<h2>Work Experience</h2>
-					</header>
-					<div class="about-contents">
-						<div class="about-box">
-							<h4 class="job_info">January 2023 - March 2023 (3 months)</h4>
-							<h3>Prysmian Group: Customer Order - Customer Service</h3>
-							<p class="job_info">Prysmian Group</p>
-							<p class="job_info">Nässjö, Sweden</p>
+            <ul class="job_desc">
+                
+                <li>{{description}}</li>
+              
+            </ul>
+			{{#if ../isAuthenticated}}
+                        <form action="/about/{{entry_id}}/edit" method="post">
+                            <label for="startDate">Start Date:</label>
+                            <input type="text" id="startDate" name="start_date" value="{{start_date}}">
 
-							<ul class="job_desc">
-								<li>Managed all projects and orders for one of the largest customers.</li>
-								<li>Handled order acknowledgment and invoices according to agreements and price lists.
-								</li>
-								<li>Considered production delays and inventory conditions during order processing.</li>
-								<li>Collaborated closely with cross-functional teams to ensure customer satisfaction.
-								</li>
-							</ul>
+                            <label for="endDate">End Date:</label>
+                            <input type="text" id="endDate" name="end_date" value="{{end_date}}">
 
-						</div>
-						<div class="about-box">
-							<h4 class="job_info">2016</h4>
-							<h3>Lokalvård - Tidaholm Kommun</h3>
-							<p class="job_info">Tidaholm Kommun</p>
-							<p class="job_info">Tidaholm, Sweden</p>
+                            <label for="institution">Institution:</label>
+                            <input type="text" id="institution" name="institution" value="{{institution}}">
 
-							<ul class="job_desc">
-								<li>Performed thorough cleaning of workplaces to maintain a hygienic and tidy
-									environment.</li>
-								<li>Organized shelves and storage areas to maximize efficiency and accessibility of
-									items.</li>
-								<li>Assisted in outdoor tasks, including blowing leaves and maintaining outdoor spaces.
-								</li>
-							</ul>
-						</div>
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title" value="{{title}}">
 
-					</div>
-				</section>
+                            <label for="location">Location:</label>
+                            <input type="text" id="location" name="location" value="{{location}}">
 
-				<!-- Experience section ends -->
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description">{{description}}</textarea>
+
+                            <button type="submit">Update Entry</button>
+                        </form>
+
+                        <!-- Delete Button -->
+                        <form action="/about/{{entry_id}}/delete" method="post">
+                            <button type="submit">Delete Entry</button>
+                        </form>
+                        {{/if}}
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</section>
+<!-- Work Experience section ends -->
 			</main>
 
 		</div>

@@ -38,3 +38,14 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .blogs-container {
+      flex-direction: column; /* Stack cards vertically on smaller screens */
+    }
+  
+    .blog-box {
+      max-width: 100%; /* Full width for cards on smaller screens */
+      margin-bottom: 20px; /* Add spacing between stacked cards */
+    }
+  }

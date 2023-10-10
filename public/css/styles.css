@@ -18,11 +18,14 @@
     --primary-color: #007bff;
     --secondary-color:  #FCF6F5;
     --hover-line: rgb(255, 59, 52);
-    --background-color: #3e3b3b;
-    --lighter-background-color: #4f4b4b;
+    --background-color: #2c2a35;
+    --lighter-background-color: #49495d;
   }
 
-
+.heading {
+    margin-left: 3%;
+    color: var(--hover-line);
+}
 .header {
     width: 100%;
     display: flex;
@@ -142,7 +145,7 @@ box-shadow:  35px 35px 650px #b27575,
 .home-content p {
     font-size: 1rem;
     color: var(--text-color);
-
+    background-color: transparent;
 }
 
 .social-media a {
@@ -269,14 +272,182 @@ main.about-row{
 
 .project-box {
     flex: 1 1 calc(30% - 2rem); /* Adjust width as needed */
-    background-color: var(--hover-line);
+    background-color: var(--lighter-background-color);
+    border: 2px solid var(--secondary-color);
     padding: 3rem 3rem 4rem;
-    border-radius: 4rem;
     text-align: center;
-    border: .2rem solid black;
     transition: .5s;
 }
+.project-box h3 {
+    background-color: var(--lighter-background-color);
+}
+.project-box:hover {
+    box-shadow: 0px 3px 6px 0px var(--hover-line);
+    border: 1px solid transparent;
+    }
 
 .menu-toggle {
     display: none;
+}
+
+.blogs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+     /* Adjust the spacing between cards */
+     transition: all 0.4s;
+  }
+  
+  /* Style for each individual blog card */
+  .blog-box {
+    background-color: var(--lighter-background-color);
+    border: 2px solid var(--secondary-color);
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin-right: 2%;
+    margin-left: 2%;
+    flex: calc(50% - 10px);
+    transition: all 0.4s;
+    margin-top: 2%;
+
+  }
+
+  
+  .blog-box:hover {
+    box-shadow: 0px 3px 6px 0px var(--hover-line);
+    border: 1px solid transparent;
+  }
+  .blog-box h3, p {
+    color: var(--text-color);
+    background-color: var(--lighter-background-color);
+  }
+
+
+  #technologies {
+    text-align: center;
+    padding: 20px;
+}
+
+.heading {
+    font-size: 28px;
+}
+
+.technologies-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.technology-box {
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.technology-box h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+.technology-box img {
+    max-width: 100%; /* This ensures the image fits within its container */
+    max-height: 150px; /* Adjust the max height as needed */
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+  .background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #072c82,
+        #09436a
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+.login-form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 52%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+.login-form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    background-color: transparent;
+}
+.login-form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.label-login{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: transparent;
+}
+.input-login{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.button-login{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
 }

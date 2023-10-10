@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
-// Sample hardcoded username and password for demonstration
+//  hardcoded username and password for demonstration
 const validUsername = 'demo';
-const validPassword = 'password';
+const validPassword = '$2b$10$Hn4r5qSs2zERlWxY.cNIEu0QEhJkgE3FNszXWzajrPqt3km7SApi6';
+
 
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
@@ -26,11 +28,16 @@ router.get('/login', (req, res) => {
 });
 
 // Handle login form submission
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
+    
+
   const { username, password } = req.body;
+  const passwordMatch = await bcrypt.compare(password, validPassword);
+
+
 
   // Check if the username and password match the hardcoded values
-  if (username === validUsername && password === validPassword) {
+  if (username === validUsername && passwordMatch) {
     // Set user information in the session
     req.session.user = { username };
     // Successful login

@@ -17,7 +17,9 @@ db.run('CREATE TABLE IF NOT EXISTS blogs (' +
     'title TEXT NOT NULL, ' +
     'tags TEXT NOT NULL, ' +
     'author TEXT NOT NULL, ' +
-    'content TEXT NOT NULL' +
+    'content TEXT NOT NULL, ' +
+    'img_url TEXT, ' + // New field for image URL
+    'brief_summary TEXT' + // New field for brief summary
 ');', function(err) {
     if (err) {
         console.error(err.message);
@@ -59,14 +61,14 @@ router.get('/:post_id', (req, res) => {
 router.post('/', (req, res) => {
     console.log('create operation');
 
-    const { title, content, author, tags } = req.body;
+    const { title, content, author, tags, img_url, brief_summary } = req.body;
 
     if (!title || !content || !author || !tags) {
         return res.status(400).send('Title, content, author, and tags are required.');
     }
 
-    const insertStatement = db.prepare('INSERT INTO blogs (title, content, author, tags) VALUES (?, ?, ?, ?)');
-    insertStatement.run(title, content, author, tags);
+    const insertStatement = db.prepare('INSERT INTO blogs (title, content, author, tags, img_url, brief_summary) VALUES (?, ?, ?, ?, ?, ?)');
+    insertStatement.run(title, content, author, tags, img_url, brief_summary);
     insertStatement.finalize();
 
     res.redirect('/blog');
@@ -88,11 +90,11 @@ router.post('/:post_id/delete', (req, res) => {
 router.post('/:post_id/edit', (req, res) => {
     console.log('edit operation');
     const postId = req.params.post_id;
-    const { title, content, author, tags } = req.body;
+    const { title, content, author, tags, img_url, brief_summary } = req.body;
 
     // Check if at least one field has been provided for update
-    if (!title && !content && !author && !tags) {
-        return res.status(400).send('At least one field (title, content, author, or tags) should be provided for update.');
+    if (!title && !content && !author && !tags && !img_url && !brief_summary) {
+        return res.status(400).send('At least one field (title, content, author, tags, img_url, or brief_summary) should be provided for update.');
     }
 
     // Construct the SQL query based on the provided fields
@@ -119,6 +121,16 @@ router.post('/:post_id/edit', (req, res) => {
         updateValues.push(tags);
     }
 
+    if (img_url) {
+        updateFields.push('img_url = ?');
+        updateValues.push(img_url);
+    }
+
+    if (brief_summary) {
+        updateFields.push('brief_summary = ?');
+        updateValues.push(brief_summary);
+    }
+
     // Build the SQL query dynamically
     const updateQuery = `UPDATE blogs SET ${updateFields.join(', ')} WHERE post_id=?`;
     updateValues.push(postId);
@@ -130,6 +142,5 @@ router.post('/:post_id/edit', (req, res) => {
 
     res.redirect('/blog');
 });
-
 
 module.exports = router;

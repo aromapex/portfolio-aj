@@ -16,6 +16,12 @@
         <label for="newTags">Tags:</label>
         <input type="text" id="newTags" name="tags" placeholder="Tags" required>
 
+        <label for="newImgUrl">Image URL:</label>
+        <input type="text" id="newImgUrl" name="img_url" placeholder="Image URL">
+
+        <label for="newBriefSummary">Brief Summary:</label>
+        <textarea id="newBriefSummary" name="brief_summary" placeholder="Brief Summary"></textarea>
+
         <button type="submit">Create Blog</button>
     </form>
     {{/if}}
@@ -25,30 +31,36 @@
         <div class="blog-box">
             <h3>{{title}}</h3>
             <p>{{content}}</p>
-            <p><strong>Author:</strong> {{author}}</p>
-            <p><strong>Tags:</strong> {{tags}}</p>
+            <p>Author: {{author}}</p>
+            <p>Tags: {{tags}}</p>
+            {{#if img_url}}
+            <p>Image URL: {{img_url}}</p>
+            {{/if}}
+            {{#if brief_summary}}
+            <p>Brief Summary: {{brief_summary}}</p>
+            {{/if}}
             <a href="/blog/{{post_id}}">Read More</a>
 
-
             <!-- Edit Blog Form -->
-           <!-- Edit Blog Form -->
-               {{#if ../isAuthenticated}}
-               <form action="/blog/{{post_id}}/edit" method="post">
-                   <input type="text" name="title" placeholder="New Title" value="{{title}}">
-                   <input type="text" name="content" placeholder="New Content" value="{{content}}">
-                   <input type="text" name="author" placeholder="New Author" value="{{author}}">
-                   <input type="text" name="tags" placeholder="New Tags" value="{{tags}}">
-                   <button type="submit">Update</button>
-               </form>
-               {{/if}}
+            {{#if ../isAuthenticated}}
+            <form action="/blog/{{post_id}}/edit" method="post">
+                <input type="text" name="title" placeholder="New Title" value="{{title}}">
+                <input type="text" name="content" placeholder="New Content" value="{{content}}">
+                <input type="text" name="author" placeholder="New Author" value="{{author}}">
+                <input type="text" name="tags" placeholder="New Tags" value="{{tags}}">
+                <input type="text" name="img_url" placeholder="New Image URL" value="{{img_url}}">
+                <textarea name="brief_summary" placeholder="New Brief Summary">{{brief_summary}}</textarea>
+                <button type="submit">Update</button>
+            </form>
+            {{/if}}
 
-               <!-- Delete Blog Form -->
-               {{#if ../isAuthenticated}}
-               <form action="/blog/{{post_id}}/delete" method="post">
-                   <button type="submit">Delete</button>
-               </form>
-               {{/if}}
-           </div>
-           {{/each}}
-       </div>
-   </div>
+            <!-- Delete Blog Form -->
+            {{#if ../isAuthenticated}}
+            <form action="/blog/{{post_id}}/delete" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+</div>
