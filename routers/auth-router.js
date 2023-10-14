@@ -7,8 +7,10 @@ const bcrypt = require('bcrypt');
 router.use(bodyParser.urlencoded({ extended: true }));
 
 //  hardcoded username and password for demonstration
-const validUsername = 'demo';
+const validUsername = 'Ahsan';
 const validPassword = '$2b$10$Hn4r5qSs2zERlWxY.cNIEu0QEhJkgE3FNszXWzajrPqt3km7SApi6';
+
+
 
 
 // Middleware to check if the user is authenticated

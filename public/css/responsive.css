@@ -1,3 +1,12 @@
+:root {
+    --text-color: rgb(255, 255, 255);
+    --primary-color: #007bff;
+    --secondary-color:  #FCF6F5;
+    --hover-line: rgb(255, 59, 52);
+    --background-color: #2c2a35;
+    --lighter-background-color: #49495d;
+  }
+
 @media (max-width: 768px) {
     .logo {
         margin-left: 5%;;
@@ -10,7 +19,7 @@
         display: flex;
     }
     nav-bar {
-        background-color: white;
+        background-color: var(--background-color);
     }
     .nav-bar ul {
         display: none;
@@ -19,7 +28,7 @@
         position: absolute;
         left: 0;
         right: 0;
-        background-color: white;
+        background-color: var(--background-color);
     }
     .nav-bar ul.active {
         display: flex;
@@ -29,6 +38,8 @@
     }
     .menu-toggle {
         display: flex;
+        z-index: 10;
+        position: relative;
     }
 }
 

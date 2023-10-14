@@ -17,8 +17,10 @@
                         <input type="text" id="institution" name="institution" placeholder="Institution" required>
 
                         <label for="title">Title:</label>
-                        <input type="text" id="title" name="title" placeholder="Title" required>
-
+<select id="title" name="title">
+  <option value="Education" {{#if (eq title "Education")}}selected{{/if}}>Education</option>
+  <option value="Work Experience" {{#if (eq title "Work Experience")}}selected{{/if}}>Work Experience</option>
+</select>
                         <label for="location">Location:</label>
                         <input type="text" id="location" name="location" placeholder="Location">
 
@@ -54,7 +56,10 @@
                             <input type="text" id="institution" name="institution" value="{{institution}}">
 
                             <label for="title">Title:</label>
-                            <input type="text" id="title" name="title" value="{{title}}">
+                            <select id="title" name="title">
+  <option value="Education" {{#if (eq title "Education")}}selected{{/if}}>Education</option>
+  <option value="Work Experience" {{#if (eq title "Work Experience")}}selected{{/if}}>Work Experience</option>
+</select> 
 
                             <label for="location">Location:</label>
                             <input type="text" id="location" name="location" value="{{location}}">
@@ -109,7 +114,10 @@
                             <input type="text" id="institution" name="institution" value="{{institution}}">
 
                             <label for="title">Title:</label>
-                            <input type="text" id="title" name="title" value="{{title}}">
+                           <select id="title" name="title">
+  <option value="Education" {{#if (eq title "Education")}}selected{{/if}}>Education</option>
+  <option value="Work Experience" {{#if (eq title "Work Experience")}}selected{{/if}}>Work Experience</option>
+</select>
 
                             <label for="location">Location:</label>
                             <input type="text" id="location" name="location" value="{{location}}">
