@@ -3,11 +3,13 @@
     <p><strong>Author:</strong> {{author}}</p>
     <p><strong>Tags:</strong> {{tags}}</p>
     {{#if img_url}}
-    <p><strong>Image URL:</strong> {{img_url}}</p>
+    
+    <img src="{{img_url}}">
+
     {{/if}}
     {{#if brief_summary}}
     <p><strong>Brief Summary:</strong> {{brief_summary}}</p>
     {{/if}}
-    <div class="content">{{{content}}}</div>
+    <div class="content"><p>{{{content}}}</p></div>
     <a href="/blog" class="back-link">Back to Blogs</a>
 </div>

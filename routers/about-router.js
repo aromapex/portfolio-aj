@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('project-aj.db');
+const { isAuthenticated } = require('./auth-router'); // Import the isAuthenticated middleware
 
 // Create the career table if it doesn't exist
 db.run(`
@@ -36,8 +37,8 @@ router.get('/', (req, res) => {
   });
 });
 
-// Create Operation
-router.post('/', (req, res) => {
+// Create Operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/', isAuthenticated, (req, res) => {
   const { start_date, end_date, institution, title, location, description } = req.body;
 
   if (!start_date || !institution || !title) {
@@ -51,8 +52,8 @@ router.post('/', (req, res) => {
   res.redirect('/about');
 });
 
-// Delete Operation
-router.post('/:entry_id/delete', (req, res) => {
+// Delete Operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:entry_id/delete', isAuthenticated, (req, res) => {
   const entryId = req.params.entry_id;
 
   const deleteStatement = db.prepare('DELETE FROM career WHERE entry_id=?');
@@ -62,8 +63,8 @@ router.post('/:entry_id/delete', (req, res) => {
   res.redirect('/about');
 });
 
-// Edit Operation for updating individual fields of a career entry
-router.post('/:entry_id/edit', (req, res) => {
+// Edit Operation for updating individual fields of a career entry, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:entry_id/edit', isAuthenticated, (req, res) => {
   const entryId = req.params.entry_id;
   const { start_date, end_date, institution, title, location, description } = req.body;
 

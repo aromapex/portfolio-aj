@@ -1,50 +1,54 @@
 <div id="main">
-		<div class="about-container">
-			 {{#if isAuthenticated}}
+    <div class="about-container">
+        {{#if isAuthenticated}}
+        <section class="about-col">
+            <header class="about-title">
+                <h2>Create Career Entry</h2>
+            </header>
+            <div class="about-contents">
+                <form action="/about" method="post">
+                    <label for="startDate">Start Date:</label>
+                    <input type="text" id="startDate" name="start_date" placeholder="Start Date" required>
+
+                    <label for="endDate">End Date:</label>
+                    <input type="text" id="endDate" name="end_date" placeholder="End Date">
+
+                    <label for="institution">Institution:</label>
+                    <input type="text" id="institution" name="institution" placeholder="Institution" required>
+
+                    <label for="title">Title:</label>
+                    <select id="title" name="title">
+                        <option value="Education" {{#if (eq title "Education" )}}selected{{/if}}>Education</option>
+                        <option value="Work Experience" {{#if (eq title "Work Experience" )}}selected{{/if}}>Work
+                            Experience</option>
+                    </select>
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Location">
+
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Description"></textarea>
+
+                    <button type="submit">Create Entry</button>
+                </form>
+            </div>
+        </section>
+        {{/if}}
+        <main class="about-row">
+            <!-- Educations section starts -->
             <section class="about-col">
                 <header class="about-title">
-                    <h2>Create Career Entry</h2>
+                    <h2>Education</h2>
                 </header>
                 <div class="about-contents">
-                    <form action="/about" method="post">
-                        <label for="startDate">Start Date:</label>
-                        <input type="text" id="startDate" name="start_date" placeholder="Start Date" required>
-
-                        <label for="endDate">End Date:</label>
-                        <input type="text" id="endDate" name="end_date" placeholder="End Date">
-
-                        <label for="institution">Institution:</label>
-                        <input type="text" id="institution" name="institution" placeholder="Institution" required>
-
-                        <label for="title">Title:</label>
-<select id="title" name="title">
-  <option value="Education" {{#if (eq title "Education")}}selected{{/if}}>Education</option>
-  <option value="Work Experience" {{#if (eq title "Work Experience")}}selected{{/if}}>Work Experience</option>
-</select>
-                        <label for="location">Location:</label>
-                        <input type="text" id="location" name="location" placeholder="Location">
-
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" placeholder="Description"></textarea>
-
-                        <button type="submit">Create Entry</button>
-                    </form>
-                </div>
-            </section>
-            {{/if}}
-			<main class="about-row">
-				<!-- Educations section starts -->
-				<section class="about-col">
-    <header class="about-title">
-        <h2>Education</h2>
-    </header>
-    <div class="about-contents">
-        {{#each careerData}}
-        {{#if (eq title "Education")}}
-        <div class="about-box">
-            <h4>{{start_date}} - {{end_date}}</h4>
-            <h3>{{institution}}</h3>
-			{{#if ../isAuthenticated}}
+                    {{#each careerData}}
+                    {{#if (eq title "Education")}}
+                    <div class="about-box">
+                        <h4>{{start_date}} - {{end_date}}</h4>
+                        <h3>{{institution}}</h3>
+                            <ul class="job_desc">
+                            <li>{{description}}</li>
+                        </ul>
+                        {{#if ../isAuthenticated}}
                         <form action="/about/{{entry_id}}/edit" method="post">
                             <label for="startDate">Start Date:</label>
                             <input type="text" id="startDate" name="start_date" value="{{start_date}}">
@@ -57,9 +61,11 @@
 
                             <label for="title">Title:</label>
                             <select id="title" name="title">
-  <option value="Education" {{#if (eq title "Education")}}selected{{/if}}>Education</option>
-  <option value="Work Experience" {{#if (eq title "Work Experience")}}selected{{/if}}>Work Experience</option>
-</select> 
+                                <option value="Education" {{#if (eq title "Education" )}}selected{{/if}}>Education
+                                </option>
+                                <option value="Work Experience" {{#if (eq title "Work Experience" )}}selected{{/if}}>
+                                    Work Experience</option>
+                            </select>
 
                             <label for="location">Location:</label>
                             <input type="text" id="location" name="location" value="{{location}}">
@@ -75,34 +81,32 @@
                             <button type="submit">Delete Entry</button>
                         </form>
                         {{/if}}
-        </div>
-        {{/if}}
-        {{/each}}
-    </div>
-</section>
-<!-- Education section ends -->
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </section>
+            <!-- Education section ends -->
 
-				<!-- Educations section ends -->
+            <!-- Work Experience section starts -->
+            <section class="about-col">
+                <header class="about-title">
+                    <h2>Work Experience</h2>
+                </header>
+                <div class="about-contents">
+                    {{#each careerData}}
+                    {{#if (eq title "Work Experience")}}
+                    <div class="about-box">
+                        <h4 class="job_info">{{start_date}} - {{end_date}}</h4>
+                        <h3>{{title}}</h3>
+                        <p class="job_info">{{location}}</p>
 
-<!-- Work Experience section starts -->
-<section class="about-col">
-    <header class="about-title">
-        <h2>Work Experience</h2>
-    </header>
-    <div class="about-contents">
-        {{#each careerData}}
-        {{#if (eq title "Work Experience")}}
-        <div class="about-box">
-            <h4 class="job_info">{{start_date}} - {{end_date}}</h4>
-            <h3>{{title}}</h3>
-            <p class="job_info">{{location}}</p>
+                        <ul class="job_desc">
 
-            <ul class="job_desc">
-                
-                <li>{{description}}</li>
-              
-            </ul>
-			{{#if ../isAuthenticated}}
+                            <li>{{description}}</li>
+
+                        </ul>
+                        {{#if ../isAuthenticated}}
                         <form action="/about/{{entry_id}}/edit" method="post">
                             <label for="startDate">Start Date:</label>
                             <input type="text" id="startDate" name="start_date" value="{{start_date}}">
@@ -114,10 +118,12 @@
                             <input type="text" id="institution" name="institution" value="{{institution}}">
 
                             <label for="title">Title:</label>
-                           <select id="title" name="title">
-  <option value="Education" {{#if (eq title "Education")}}selected{{/if}}>Education</option>
-  <option value="Work Experience" {{#if (eq title "Work Experience")}}selected{{/if}}>Work Experience</option>
-</select>
+                            <select id="title" name="title">
+                                <option value="Education" {{#if (eq title "Education" )}}selected{{/if}}>Education
+                                </option>
+                                <option value="Work Experience" {{#if (eq title "Work Experience" )}}selected{{/if}}>
+                                    Work Experience</option>
+                            </select>
 
                             <label for="location">Location:</label>
                             <input type="text" id="location" name="location" value="{{location}}">
@@ -133,13 +139,13 @@
                             <button type="submit">Delete Entry</button>
                         </form>
                         {{/if}}
-        </div>
-        {{/if}}
-        {{/each}}
-    </div>
-</section>
-<!-- Work Experience section ends -->
-			</main>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </section>
+            <!-- Work Experience section ends -->
+        </main>
 
-		</div>
+    </div>
 </div>

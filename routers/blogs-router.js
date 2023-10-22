@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('project-aj.db');
+const { isAuthenticated } = require('./auth-router'); // Import the isAuthenticated middleware, to be used as a method
 
 //Drop the existing table
 // db.run('DROP TABLE IF EXISTS blogs;', function(err) {
@@ -18,8 +19,8 @@ db.run('CREATE TABLE IF NOT EXISTS blogs (' +
     'tags TEXT NOT NULL, ' +
     'author TEXT NOT NULL, ' +
     'content TEXT NOT NULL, ' +
-    'img_url TEXT, ' + // New field for image URL
-    'brief_summary TEXT' + // New field for brief summary
+    'img_url TEXT, ' + 
+    'brief_summary TEXT' + 
 ');', function(err) {
     if (err) {
         console.error(err.message);
@@ -41,10 +42,9 @@ router.get('/', (req, res) => {
     });
 });
 
-// Add this route to handle detailed blog pages
+// route to handle detailed blog pages
 router.get('/:post_id', (req, res) => {
     const postId = req.params.post_id;
-
     // Retrieve the blog post details from the database
     db.get('SELECT * FROM blogs WHERE post_id = ?', postId, (err, blogData) => {
         if (err) {
@@ -52,13 +52,12 @@ router.get('/:post_id', (req, res) => {
             res.status(500).send('Internal Server Error');
             return;
         }
-
         // Render the detailed blog page with the retrieved data
         res.render('blogdetail', blogData);
     });
 });
-// Create Operation
-router.post('/', (req, res) => {
+// Create Operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/', isAuthenticated, (req, res) => {
     console.log('create operation');
 
     const { title, content, author, tags, img_url, brief_summary } = req.body;
@@ -74,8 +73,8 @@ router.post('/', (req, res) => {
     res.redirect('/blog');
 });
 
-// Delete Operation
-router.post('/:post_id/delete', (req, res) => {
+// Delete Operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:post_id/delete', isAuthenticated, (req, res) => { 
     console.log('delete operation');
     const postId = req.params.post_id;
 
@@ -86,8 +85,8 @@ router.post('/:post_id/delete', (req, res) => {
     res.redirect('/blog');
 });
 
-// Edit Operation for updating individual fields of a blog post
-router.post('/:post_id/edit', (req, res) => {
+// Edit Operation for updating individual fields of a blog post, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:post_id/edit', isAuthenticated, (req, res) => {
     console.log('edit operation');
     const postId = req.params.post_id;
     const { title, content, author, tags, img_url, brief_summary } = req.body;

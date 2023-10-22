@@ -10,9 +10,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 const validUsername = 'Ahsan';
 const validPassword = '$2b$10$Hn4r5qSs2zERlWxY.cNIEu0QEhJkgE3FNszXWzajrPqt3km7SApi6';
 
-
-
-
 // Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.user) {
@@ -31,12 +28,9 @@ router.get('/login', (req, res) => {
 
 // Handle login form submission
 router.post('/login', async (req, res) => {
-    
 
   const { username, password } = req.body;
   const passwordMatch = await bcrypt.compare(password, validPassword);
-
-
 
   // Check if the username and password match the hardcoded values
   if (username === validUsername && passwordMatch) {
@@ -48,8 +42,8 @@ router.post('/login', async (req, res) => {
 
     res.redirect('/projects');
   } else {
-    console.log('noooooooooo failed login');
-    // Failed login, you might render the login page with an error message
+    console.log(' failed login');
+    // Failed login, render the login page with an error message
     res.render('login', { error: 'Invalid username or password' });
   }
 });

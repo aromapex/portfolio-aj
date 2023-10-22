@@ -9,7 +9,7 @@ const db = new sqlite3.Database('project-aj.db');
 const { setupDatabase } = require('./projects-database');
 const { router: authRouter, isAuthenticated } = require('./routers/auth-router');
 const session = require('express-session');
-const exphbs = require('express-handlebars'); // Add this line
+const exphbs = require('express-handlebars'); // 
 
 const blogRouter = require('./routers/blogs-router');
 
@@ -44,7 +44,6 @@ app.use('/tech', require('./routers/tech-router'));
 app.use('/about', require('./routers/about-router'));
 app.use('/', authRouter);
 
--
 
 // Call the setupDatabase function to create the database and insert 
 //setupDatabase();
@@ -55,14 +54,10 @@ app.get('/', function(request, response){
   response.render('home.handlebars')
 })
 
-
-
-
 app.get('/login', (req, res) => {
   res.render('login');
   console.log("accessing login route");
 });
-
 
 // defines the final default route 404 NOT FOUND
 app.use(function(req,res){

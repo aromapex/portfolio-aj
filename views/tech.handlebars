@@ -17,8 +17,13 @@
     <div class="technologies-container flex">
         {{#each technologiesData}}
         <div class="technology-box">
-            <h3>{{name}}</h3>
-            <img src="{{picurl}}" alt="{{name}} Image">
+            <div class="tech-img">
+                <img src="{{picurl}}" alt="{{name}} Image">
+                </div>
+            <div class="tech-name">
+                <h3>{{name}}</h3>
+                </div>
+            
             
             <!-- Edit Technology Form -->
             {{#if ../isAuthenticated}}

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('project-aj.db');
+const { isAuthenticated } = require('./auth-router'); // Import the isAuthenticated middleware
 
 // Define your routes here, such as displaying projects, deleting projects, etc.
 // Example:
@@ -20,13 +21,11 @@ router.get('/', (req, res) => {
 
 
 // Create Operation
-router.post('/', (req, res) => {
+router.post('/', isAuthenticated, (req, res) => {
     const { title, description, img } = req.body;
-  
     if (!title || !description) {
       return res.status(400).send('Title and description are required.');
     }
-  
     const insertStatement = db.prepare('INSERT INTO projects (title, description, img) VALUES (?, ?, ?)');
     insertStatement.run(title, description, img);
     insertStatement.finalize();
@@ -35,8 +34,8 @@ router.post('/', (req, res) => {
 });
 
 
-
-router.post('/:id/delete', (req, res) => {
+ // Delete operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:id/delete', isAuthenticated, (req, res) => {
     const projectId = req.params.id;
   
     const deleteStatement = db.prepare('DELETE FROM projects WHERE id=?');
@@ -46,8 +45,8 @@ router.post('/:id/delete', (req, res) => {
     res.redirect('/projects');
   });
   
-
-  router.post('/:id/edit', (req, res) => {
+//Edit operation, , CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+  router.post('/:id/edit', isAuthenticated, (req, res) => {
     const projectId = req.params.id;
     const { title, description, img } = req.body;
   

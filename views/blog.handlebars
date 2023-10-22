@@ -30,12 +30,9 @@
         {{#each blogsData}}
         <div class="blog-box">
             <h3>{{title}}</h3>
-            <p>{{content}}</p>
             <p>Author: {{author}}</p>
             <p>Tags: {{tags}}</p>
-            {{#if img_url}}
-            <p>Image URL: {{img_url}}</p>
-            {{/if}}
+
             {{#if brief_summary}}
             <p>Brief Summary: {{brief_summary}}</p>
             {{/if}}

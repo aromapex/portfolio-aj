@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('project-aj.db');
+const { isAuthenticated } = require('./auth-router'); // Import the isAuthenticated middleware
 
 db.run(`
 CREATE TABLE IF NOT EXISTS technologies (
@@ -32,14 +33,13 @@ router.get('/', (req, res) => {
   });
 });
 
-// Create Operation
-router.post('/', (req, res) => {
+// Create Operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/', isAuthenticated, (req, res) => {
   const { name, picurl } = req.body;
 
   if (!name) {
     return res.status(400).send('Name is required.');
   }
-
   const insertStatement = db.prepare('INSERT INTO technologies (name, picurl) VALUES (?, ?)');
   insertStatement.run(name, picurl);
   insertStatement.finalize();
@@ -47,8 +47,8 @@ router.post('/', (req, res) => {
   res.redirect('/tech');
 });
 
-// Delete Operation
-router.post('/:id/delete', (req, res) => {
+// Delete Operation, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:id/delete', isAuthenticated, (req, res) => {
   const techId = req.params.id;
 
   const deleteStatement = db.prepare('DELETE FROM technologies WHERE id=?');
@@ -58,8 +58,10 @@ router.post('/:id/delete', (req, res) => {
   res.redirect('/tech');
 });
 
-// Edit Operation for updating individual fields of a technology
-router.post('/:id/edit', (req, res) => {
+
+
+// Edit Operation for updating individual fields of a technology, CAN ONLY BE DONE IF AUTHENTICATED (ADMIN)
+router.post('/:id/edit', isAuthenticated, (req, res) => {
   const techId = req.params.id;
   const { name, picurl } = req.body;
 
