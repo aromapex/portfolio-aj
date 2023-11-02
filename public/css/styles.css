@@ -38,6 +38,7 @@
     height: 100%;
     padding: 0 100px;
     margin-top: 1%;
+
 }
 
 a {
@@ -187,6 +188,7 @@ box-shadow:  35px 35px 650px #b27575,
 }
 .bx, .bx-menu {
     color: var(--text-color);
+    font-size: 25px;
    
 }
 .about-main {

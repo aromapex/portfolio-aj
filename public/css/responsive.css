@@ -14,6 +14,7 @@
     
     .header{
         padding: 0;
+        
     }
     .menu-toggle {
         display: flex;
@@ -55,10 +56,15 @@
         margin: 0;
         color: var(--text-color);
     }
+    .home {
+        
+        flex-direction: column;
+    }
    
     .home-content {
         margin-left: 5%;
-        margin-top: 30%; 
+        margin-top: 34%; 
+        text-align: center;
     }
     .home-content h1 {
         font-size: 2rem;
@@ -67,11 +73,17 @@
         margin: 0;
         color: var(--text-color);
         
-    
+
     }
 
     .home-img img {
-        display: none;
+       width: 60vw;
+       left: 5rem;
+       box-shadow: 400px 35px 650px #b27575, -35px -35px 7px #ffb3b3;
+    }
+
+    .home-img {
+        
     }
 
 }
@@ -96,5 +108,8 @@
 
   @media screen and (max-width: 768px) {
 
-    
+    .login-form {
+        height: 500px;
+        width: 350px;
+    }
   }
