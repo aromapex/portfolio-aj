@@ -47,6 +47,9 @@
         right: 2rem;
 
     }
+    .shape:first-child {
+        top: 80px;
+      }
     .project-box {
         flex-basis: 45%; /* Adjust the value to fit the smaller screens */
     }
