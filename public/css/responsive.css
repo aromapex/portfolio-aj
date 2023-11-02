@@ -82,13 +82,15 @@
     .home-img img {
        width: 60vw;
        left: 5rem;
-       box-shadow: 400px 35px 650px #b27575, -35px -35px 7px #ffb3b3;
+       box-shadow: 4000px -1px 0px #b27575, -35px -35px 7px #ffb3b3;    
     }
-
     .home-img {
         
     }
 
+    .login-form {
+        box-shadow: 0 0 0px rgba(8,7,16,0.6);
+    }
 }
 
 @media (max-width: 768px) { 
